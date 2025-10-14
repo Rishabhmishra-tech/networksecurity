@@ -3,7 +3,7 @@ pandas
 numpy
 pymango
 certifi
-pymongo[srv]==3.6
+pymongo[srv]==4.0
 pymango
 
 
