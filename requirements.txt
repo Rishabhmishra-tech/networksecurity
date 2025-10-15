@@ -5,6 +5,7 @@ pymango
 certifi
 pymongo[srv]==4.0
 pymango
+scikit-learn
 
 
 
