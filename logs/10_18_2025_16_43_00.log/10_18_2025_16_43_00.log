@@ -1,0 +1,54 @@
+[ 2025-10-18 16:43:05,156 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2025-10-18 16:43:05,156 ] 107 dagshub - INFO - Accessing as Rishabhmishra-tech
+[ 2025-10-18 16:43:06,385 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/Rishabhmishra-tech/networksecurity "HTTP/1.1 200 OK"
+[ 2025-10-18 16:43:08,051 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2025-10-18 16:43:08,054 ] 107 dagshub - INFO - Initialized MLflow to track repo "Rishabhmishra-tech/networksecurity"
+[ 2025-10-18 16:43:08,057 ] 107 dagshub - INFO - Repository Rishabhmishra-tech/networksecurity initialized!
+[ 2025-10-18 16:43:44,055 ] 42 root - INFO - Start data Ingestion
+[ 2025-10-18 16:43:56,244 ] 65 root - INFO - Performed train test split on the dataframe
+[ 2025-10-18 16:43:56,244 ] 67 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2025-10-18 16:43:56,244 ] 75 root - INFO - Exporting train and test file path.
+[ 2025-10-18 16:43:56,558 ] 84 root - INFO - Exported train and test file path.
+[ 2025-10-18 16:43:56,558 ] 45 root - INFO - Data Ingestion completed and artifact: DataIngestionArtifact(trained_file_path='Artifacts\\10_18_2025_16_43_00\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\10_18_2025_16_43_00\\data_ingestion\\ingested\\test.csv')
+[ 2025-10-18 16:43:56,573 ] 55 root - INFO - Initiate the data Validation
+[ 2025-10-18 16:43:56,729 ] 32 root - INFO - Required number of columns:2
+[ 2025-10-18 16:43:56,729 ] 33 root - INFO - Data frame has columns:31
+[ 2025-10-18 16:43:56,729 ] 32 root - INFO - Required number of columns:2
+[ 2025-10-18 16:43:56,729 ] 33 root - INFO - Data frame has columns:31
+[ 2025-10-18 16:43:57,035 ] 63 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2025-10-18 16:43:57,035 ] 65 root - INFO - Starting data transformation
+[ 2025-10-18 16:43:57,079 ] 48 root - INFO - Entered get_data_trnasformer_object method of Trnasformation class
+[ 2025-10-18 16:43:57,079 ] 53 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2025-10-18 16:43:57,109 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-10-18 16:43:57,110 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-10-18 16:43:57,110 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-10-18 16:43:57,110 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-10-18 17:02:09,999 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-10-18 17:02:10,007 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-10-18 17:02:10,007 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-10-18 17:02:10,107 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-10-18 17:02:10,107 ] 153 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\10_18_2025_16_43_00\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9911093150131339, precision_score=0.9878159299164233, recall_score=0.9944247339077547), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9869918699186991, precision_score=0.9825981384055038, recall_score=0.9914250714577378))
+[ 2025-10-18 19:14:38,642 ] 42 root - INFO - Start data Ingestion
+[ 2025-10-18 19:14:45,926 ] 65 root - INFO - Performed train test split on the dataframe
+[ 2025-10-18 19:14:45,926 ] 67 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2025-10-18 19:14:45,926 ] 75 root - INFO - Exporting train and test file path.
+[ 2025-10-18 19:14:46,263 ] 84 root - INFO - Exported train and test file path.
+[ 2025-10-18 19:14:46,263 ] 45 root - INFO - Data Ingestion completed and artifact: DataIngestionArtifact(trained_file_path='Artifacts\\10_18_2025_16_43_00\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\10_18_2025_16_43_00\\data_ingestion\\ingested\\test.csv')
+[ 2025-10-18 19:14:46,310 ] 55 root - INFO - Initiate the data Validation
+[ 2025-10-18 19:14:46,545 ] 32 root - INFO - Required number of columns:2
+[ 2025-10-18 19:14:46,545 ] 33 root - INFO - Data frame has columns:31
+[ 2025-10-18 19:14:46,545 ] 32 root - INFO - Required number of columns:2
+[ 2025-10-18 19:14:46,545 ] 33 root - INFO - Data frame has columns:31
+[ 2025-10-18 19:14:47,303 ] 63 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2025-10-18 19:14:47,303 ] 65 root - INFO - Starting data transformation
+[ 2025-10-18 19:14:47,413 ] 48 root - INFO - Entered get_data_trnasformer_object method of Trnasformation class
+[ 2025-10-18 19:14:47,413 ] 53 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2025-10-18 19:14:47,460 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-10-18 19:14:47,460 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-10-18 19:14:47,460 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-10-18 19:14:47,475 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-10-18 19:29:26,112 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-10-18 19:29:26,123 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-10-18 19:29:26,123 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-10-18 19:29:26,134 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-10-18 19:29:26,135 ] 153 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\10_18_2025_16_43_00\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9912142603219745, precision_score=0.9908620164483704, recall_score=0.9915667547246495), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9848208864602307, precision_score=0.9854191980558931, recall_score=0.9842233009708737))

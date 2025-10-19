@@ -26,8 +26,9 @@ from sklearn.ensemble import (
 import mlflow
 #from urllib.parse import urlparse
 
-#import dagshub
-#dagshub.init(repo_owner='krishnaik06', repo_name='networksecurity', mlflow=True)
+import dagshub
+dagshub.init(repo_owner='Rishabhmishra-tech', repo_name='networksecurity', mlflow=True)
+
 
 #os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
 #os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
@@ -46,8 +47,8 @@ class ModelTrainer:
             raise NetworkSecurityException(e,sys)
         
     def track_mlflow(self,best_model,classificationmetric):
-        #mlflow.set_registry_uri("https://dagshub.com/krishnaik06/networksecurity.mlflow")
-        #tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+        #mlflow.set_registry_uri("https://dagshub.com/Rishabhmishra-tech/networksecurity.mlflow")
+        #racking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         with mlflow.start_run():
             f1_score=classificationmetric.f1_score
             precision_score=classificationmetric.precision_score
@@ -65,7 +66,7 @@ class ModelTrainer:
                 # Register the model
                 # There are other ways to use the Model Registry, which depends on the use case,
                 # please refer to the doc for more information:
-                # https://mlflow.org/docs/latest/model-registry.html#api-workflow
+                #https://mlflow.org/docs/latest/model-registry.html#api-workflow
                 #mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model)
             #else:
                # mlflow.sklearn.log_model(best_model, "model")
@@ -90,20 +91,20 @@ class ModelTrainer:
                 # 'criterion':['gini', 'entropy', 'log_loss'],
                 
                 # 'max_features':['sqrt','log2',None],
-                'n_estimators': [8,16,32,128,256]
+                'n_estimators': [8,16]
             },
             "Gradient Boosting":{
                 # 'loss':['log_loss', 'exponential'],
-                'learning_rate':[.1,.01,.05,.001],
-                'subsample':[0.6,0.7,0.75,0.85,0.9],
+                'learning_rate':[.1,.01,],
+                'subsample':[0.6],
                 # 'criterion':['squared_error', 'friedman_mse'],
                 # 'max_features':['auto','sqrt','log2'],
-                'n_estimators': [8,16,32,64,128,256]
+                'n_estimators': [8,16]
             },
             "Logistic Regression":{},
             "AdaBoost":{
-                'learning_rate':[.1,.01,.001],
-                'n_estimators': [8,16,32,64,128,256]
+                'learning_rate':[.1,],
+                'n_estimators': [8,16]
             }
             
         }
@@ -141,7 +142,7 @@ class ModelTrainer:
         Network_Model=NetworkModel(preprocessor=preprocessor,model=best_model)
         save_object(self.model_trainer_config.trained_model_file_path,obj=NetworkModel)
         #model pusher
-        #save_object("final_model/model.pkl",best_model)
+        save_object("final_model/model.pkl",best_model)
         
 
         ## Model Trainer Artifact
