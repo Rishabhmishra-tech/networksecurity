@@ -1,2 +1,0 @@
-[ 2025-10-19 19:19:54,327 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 502 Bad Gateway"
-[ 2025-10-19 19:19:55,453 ] 1025 httpx - INFO - HTTP Request: POST https://dagshub.com/login/oauth/middleman "HTTP/1.1 502 Bad Gateway"
