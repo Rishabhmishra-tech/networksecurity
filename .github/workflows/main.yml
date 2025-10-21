@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4 # Updated to v4
+        uses: actions/checkout@v4
 
       - name: Lint code
         run: echo "Linting repository"
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4 # Updated to v4
+        uses: actions/checkout@v4
 
       - name: Install Utilities
         run: |
@@ -39,7 +39,7 @@ jobs:
           sudo apt-get install -y jq unzip
           
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4 # Updated to v4
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -47,30 +47,26 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2 # Updated to v2
+        # NOTE: Your old screenshot showed @v1, but your new file is @v2. Keep @v2.
+        uses: aws-actions/amazon-ecr-login@v2 
 
-      # --- START: FIX FOR DOCKER BUILD ERROR ---
+      # The following steps replace your faulty 'run: docker build...' block
 
-      # 1. Set up Docker Buildx for modern building capabilities
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         
-      # 2. Use the official action to reliably build and push
       - name: Build and push Docker image to Amazon ECR
+        id: build-image # Keep this ID for potential downstream steps
         uses: docker/build-push-action@v5
         with:
-          context: . # Uses the current directory as the build context
+          context: . 
           push: true
+          # The full image URI is used here for tagging ECR
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
-          # Add provenance: false to prevent potential ECR push conflicts
+          # This line prevents potential ECR manifest/metadata conflicts
           provenance: false
+          # Output the image URI for any other deployment steps
+          outputs: "type=registry,long=true,push=true" 
 
-      # 3. Manually set the image URI as an output for any downstream steps
-      - name: Set output image tag
-        id: build-image # Retains the original ID for compatibility
-        run: |
-          IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest"
-          # Use the modern way to set output variables
-          echo "image=$IMAGE_URI" >> $GITHUB_OUTPUT 
-          
-      # --- END: FIX FOR DOCKER BUILD ERROR ---
+      # NOTE: The previous separate 'Set output image tag' step is no longer needed
+      # because the 'docker/build-push-action' automatically handles the image output.
