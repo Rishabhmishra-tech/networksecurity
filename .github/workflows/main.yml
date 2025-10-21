@@ -1,45 +1,18 @@
-name: workflow
-
-on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'README.md'
-
-permissions:
-  id-token: write
-  contents: read
-
-jobs:
-  integration:
-    name: Continuous Integration
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Lint code
-        run: echo "Linting repository"
-
-      - name: Run unit tests
-        run: echo "Running unit tests"
-
-  build-and-push-ecr-image:
+build-and-push-ecr-image:
     name: Continuous Delivery
     needs: integration
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Install Utilities
         run: |
           sudo apt-get update
           sudo apt-get install -y jq unzip
-          
+
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -47,26 +20,31 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        # NOTE: Your old screenshot showed @v1, but your new file is @v2. Keep @v2.
-        uses: aws-actions/amazon-ecr-login@v2 
+        uses: aws-actions/amazon-ecr-login@v2 # Recommended to use v2
 
-      # The following steps replace your faulty 'run: docker build...' block
-
+      # --- Docker/Buildx Setup ---
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        
-      - name: Build and push Docker image to Amazon ECR
-        id: build-image # Keep this ID for potential downstream steps
+
+      # --- Build, Tag, and Push to ECR (FIXED STEP) ---
+      # This step uses the official action to fix the 'invalid reference format' error
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
         uses: docker/build-push-action@v5
         with:
-          context: . 
+          # This is the context argument that was missing from your manual command
+          context: .
+          # Pushes the image after a successful build
           push: true
-          # The full image URI is used here for tagging ECR
+          # Tags the image with the full, correct ECR path
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
-          # This line prevents potential ECR manifest/metadata conflicts
-          provenance: false
-          # Output the image URI for any other deployment steps
-          outputs: "type=registry,long=true,push=true" 
+          # Optional: Enable ECR Layer Caching for faster builds
+          cache-from: type=registry,ref=${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY_NAME }}:buildcache,mode=max
 
-      # NOTE: The previous separate 'Set output image tag' step is no longer needed
-      # because the 'docker/build-push-action' automatically handles the image output.
+      # --- Output the Image Name (Corrected Indentation) ---
+      - name: Set output image tag
+        id: set-output-image
+        run: |
+          IMAGE_TAG=latest 
+          echo "::set-output name=image::${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY_NAME }}:$IMAGE_TAG"
