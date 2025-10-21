@@ -69,8 +69,14 @@ async def train_route():
         # This response will be sent once run_pipeline() is finished
         return Response("Training is successful")
     except Exception as e:
-        # ... (Your exception handling)
-        raise NetworkSecurityException(e,sys)
+        # Format the traceback for clean error details
+        error_details = sys.exc_info()  # Gets the tuple (type, value, traceback)
+
+        # Raise the custom exception with the required arguments
+        raise NetworkSecurityException(
+            error_message=str(e),       # The error message from the exception
+            error_details=error_details # The detailed traceback information
+        )
     
 @app.post("/predict")
 async def predict_route(request: Request,file: UploadFile = File(...)):
@@ -97,4 +103,4 @@ async def predict_route(request: Request,file: UploadFile = File(...)):
 
     
 if __name__=="__main__":
-    app_run(app,host="0.0.0.0",port=8000)
+    app_run(app,host="0.0.0.0",port=800)

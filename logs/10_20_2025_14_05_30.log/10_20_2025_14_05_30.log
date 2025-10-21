@@ -1,0 +1,1 @@
+[ 2025-10-20 14:05:35,328 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 403 Forbidden"

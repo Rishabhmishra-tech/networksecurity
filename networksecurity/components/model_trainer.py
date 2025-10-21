@@ -24,15 +24,16 @@ from sklearn.ensemble import (
     RandomForestClassifier,
 )
 import mlflow
-#from urllib.parse import urlparse
+from urllib.parse import urlparse
 
 import dagshub
 dagshub.init(repo_owner='Rishabhmishra-tech', repo_name='networksecurity', mlflow=True)
 
 
-#os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
-#os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
-#os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
+os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/Rishabhmishra-tech/networksecurity.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"]="Rishabhmishra-tech"
+os.environ["MLFLOW_TRACKING_PASSWORD"]="6e58e8c8e2ea3ce9386815aa65376e5dfeee431b"
+print(f"--- DEBUG: Token length is: {len(os.environ['MLFLOW_TRACKING_PASSWORD'])} ---")
 
 
 
@@ -48,7 +49,8 @@ class ModelTrainer:
         
     def track_mlflow(self,best_model,classificationmetric):
         #mlflow.set_registry_uri("https://dagshub.com/Rishabhmishra-tech/networksecurity.mlflow")
-        #racking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+
+        #tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         with mlflow.start_run():
             f1_score=classificationmetric.f1_score
             precision_score=classificationmetric.precision_score
@@ -69,7 +71,7 @@ class ModelTrainer:
                 #https://mlflow.org/docs/latest/model-registry.html#api-workflow
                 #mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model)
             #else:
-               # mlflow.sklearn.log_model(best_model, "model")
+                #mlflow.sklearn.log_model(best_model, "model")
 
 
         
